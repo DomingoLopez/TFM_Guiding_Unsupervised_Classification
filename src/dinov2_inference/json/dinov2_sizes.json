@@ -1,0 +1,6 @@
+{
+"small": "dinov2_vits14",
+"base": "dinov2_vitb14",
+"large": "dinov2_vitl14",
+"largest": "dinov2_vitg14"
+}
