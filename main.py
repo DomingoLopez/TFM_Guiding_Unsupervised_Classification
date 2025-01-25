@@ -82,12 +82,15 @@ if __name__ == "__main__":
     
     # ###################################################################
     images = load_images("./data/Data")
-    experiments_file = "src/experiment/json/experiments_optuna_all.json"
-    run_experiments(experiments_file, images)
+    #experiments_file = "src/experiment/json/experiments_optuna_all.json"
+    experiments_file = "src/experiment/json/single.json"
+    #run_experiments(experiments_file, images)
     # Classification level to analyze
     classification_lvl = [3]
-    prompts = [1,2]
-    llava_models = ("llava1-6_7b", "llava1-6_13b", "llava1-5_7b")
+    #prompts = [1,2]
+    prompts = [3]
+    #llava_models = ("llava1-6_7b", "llava1-6_13b", "llava1-5_7b")
+    llava_models = ["llava1-6_7b"]
     # Cluster Range to filter
     n_cluster_range = (40,300)
 
@@ -156,7 +159,10 @@ if __name__ == "__main__":
                                                                     row, 
                                                                     img_cluster_dict, 
                                                                     llava_results_df)
-                        lvm_lvlm_metric.generate_stats()
+                        if prompt != 3:
+                            lvm_lvlm_metric.generate_stats()
+                        else:
+                            lvm_lvlm_metric.generate_stats_multiple_categories()
                         # Obtain results
                         quality_results = pd.DataFrame()
                         for i in (True, False):
@@ -191,10 +197,10 @@ if __name__ == "__main__":
                             # Metrics
                             "homogeneity_global": quality_results["homogeneity_global"].iloc[0],
                             "entropy_global": quality_results["entropy_global"].iloc[0],
-                            "quality_metric":quality_results["quality_metric"].iloc[0],
-                            "homogeneity_global_w_noise": quality_results["homogeneity_global_w_noise"].iloc[0],
-                            "entropy_global_w_noise": quality_results["entropy_global_w_noise"].iloc[0],
-                            "quality_metric_w_noise":quality_results["quality_metric_w_noise"].iloc[0]
+                            "quality_metric":quality_results["quality_metric"].iloc[0]
+                            # "homogeneity_global_w_noise": quality_results["homogeneity_global_w_noise"].iloc[0],
+                            # "entropy_global_w_noise": quality_results["entropy_global_w_noise"].iloc[0],
+                            # "quality_metric_w_noise":quality_results["quality_metric_w_noise"].iloc[0]
                         })
 
 
@@ -224,16 +230,16 @@ if __name__ == "__main__":
                                 # Metrics
                                 "homogeneity_global": quality_results["homogeneity_global"].iloc[0],
                                 "entropy_global": quality_results["entropy_global"].iloc[0],
-                                "quality_metric":quality_results["quality_metric"].iloc[0],
-                                "homogeneity_global_w_noise": quality_results["homogeneity_global_w_noise"].iloc[0],
-                                "entropy_global_w_noise": quality_results["entropy_global_w_noise"].iloc[0],
-                                "quality_metric_w_noise":quality_results["quality_metric_w_noise"].iloc[0]
+                                "quality_metric":quality_results["quality_metric"].iloc[0]
+                                # "homogeneity_global_w_noise": quality_results["homogeneity_global_w_noise"].iloc[0],
+                                # "entropy_global_w_noise": quality_results["entropy_global_w_noise"].iloc[0],
+                                # "quality_metric_w_noise":quality_results["quality_metric_w_noise"].iloc[0]
                             })
                             lvm_lvlm_metric.plot_cluster_categories_3()
 
 
-    df_results = pd.DataFrame(result_list)
-    df_results.to_csv("results.csv",sep=";")
+    # df_results = pd.DataFrame(result_list)
+    # df_results.to_csv("results.csv",sep=";")
 
-    df_results_top_k = pd.DataFrame(result_list_top_trials)
-    df_results_top_k.to_csv("results_top_trials.csv",sep=";")
+    # df_results_top_k = pd.DataFrame(result_list_top_trials)
+    # df_results_top_k.to_csv("results_top_trials.csv",sep=";")

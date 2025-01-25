@@ -76,8 +76,22 @@ class LlavaInferenceRemote():
             "4. Provide your response EXCLUSIVELY as the classification, without any additional explanation or commentary."
             )
         
-            
-        self.prompt = self.prompt_1 if n_prompt == 1 else self.prompt_2
+        self.prompt_3 = (
+            "You are an Image Classification Assistant specialized in identifying cultural ecosystem services and the cultural contributions of nature to people. "
+            f"Your task is to classify images into TWO of the following {len(self.categories)} categories: {categories_joins}. "
+            "Please adhere to the following rules:"
+            "1. You must assign ONLY TWO categories from the list given above."
+            "2. If the image does not clearly belong to any of the listed categories, classify it as the TWO most similar categories from the list."
+            "3. DO NOT provide any explanation."
+            "4. This is an example output: PLANTS, VEGETATION AND HABITATS."
+            )
+
+        if n_prompt == 1:
+            self.prompt = self.prompt_1 
+        elif n_prompt == 2:
+            self.prompt = self.prompt_2
+        else:
+            self.prompt = self.prompt_3
 
 
 
@@ -223,6 +237,7 @@ class LlavaInferenceRemote():
                     except Exception as e:
                         print(f"Error processing image {image_path}: {e}")
 
+
             results_df = pd.DataFrame(results)
             results_df.to_csv(self.results_csv, index=False, sep=";")
             pickle.dump(results_df, open(self.results_object, "wb"))
@@ -299,42 +314,6 @@ class LlavaInferenceRemote():
 
 
 if __name__ == "__main__":
-    llava = LlavaInferenceRemote(3,1,"index_18_silhouette_0.755",1,"llava",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(3,1,"index_18_silhouette_0.755",2,"llava",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(3,1,"index_18_silhouette_0.755",1,"llava_next",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(3,1,"index_18_silhouette_0.755",2,"llava_next",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(3,1,"index_18_silhouette_0.755",1,"llava_next_13b",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(3,1,"index_18_silhouette_0.755",2,"llava_next_13b",False,False)
-    llava.run()
-    # classification lvl 2#######################################################################
-    llava = LlavaInferenceRemote(2,1,"index_18_silhouette_0.755",1,"llava",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(2,1,"index_18_silhouette_0.755",2,"llava",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(2,1,"index_18_silhouette_0.755",1,"llava_next",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(2,1,"index_18_silhouette_0.755",2,"llava_next",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(2,1,"index_18_silhouette_0.755",1,"llava_next_13b",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(2,1,"index_18_silhouette_0.755",2,"llava_next_13b",False,False)
-    llava.run()
-# classification lvl 1#######################################################################
-    llava = LlavaInferenceRemote(1,1,"index_18_silhouette_0.755",1,"llava",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(1,1,"index_18_silhouette_0.755",2,"llava",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(1,1,"index_18_silhouette_0.755",1,"llava_next",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(1,1,"index_18_silhouette_0.755",2,"llava_next",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(1,1,"index_18_silhouette_0.755",1,"llava_next_13b",False,False)
-    llava.run()
-    llava = LlavaInferenceRemote(1,1,"index_18_silhouette_0.755",2,"llava_next_13b",False,False)
-    llava.run()
 
+    llava = LlavaInferenceRemote(3,1,"index_18_silhouette_0.755",3,"llava_next",False,False)
+    llava.run()

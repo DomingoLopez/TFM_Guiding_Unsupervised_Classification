@@ -177,6 +177,18 @@ class MultiModalClusteringMetric():
 
 
 
+    def generate_stats_multiple_categories():
+        """ 
+        TODO: Generate method able to count frecuency from multiple categories on every cluster
+        and use is as 
+        """
+        pass
+
+
+
+
+
+
 
 
     def calculate_clustering_quality(self, use_noise, alpha=1.0):
@@ -512,14 +524,14 @@ class MultiModalClusteringMetric():
         clusters = plot_data['cluster'].unique()
 
         # Crear subplots para 2 gráficos en 2 filas y 1 columna
-        fig, axes = plt.subplots(2, 1, figsize=(35, 35))
-        fig.suptitle(
-            f"Category Distribution by Cluster (Excluding Noise)\n"
-            f"Exp.: {experiment_id}, Class Level: {classification_lvl}, "
-            f"Prompt: {n_prompt}, Llava Model: {model_llava}, Clustering Model: {model_clustering}\n"
-            f"Eval. Method: {eval_method}, Score (w/o Penalty): {score_best:.3f}, Total Images: {total_images}, Noise Images: {total_noise_images}", 
-            fontsize=45
-        )
+        fig, axes = plt.subplots(2, 1, figsize=(55, 50))
+        # fig.suptitle(
+        #     f"Category Distribution by Cluster (Excluding Noise)\n"
+        #     f"Exp.: {experiment_id}, Class Level: {classification_lvl}, "
+        #     f"Prompt: {n_prompt}, Llava Model: {model_llava}, Clustering Model: {model_clustering}\n"
+        #     f"Eval. Method: {eval_method}, Score (w/o Penalty): {score_best:.3f}, Total Images: {total_images}, Noise Images: {total_noise_images}", 
+        #     fontsize=45
+        # )
 
         for i in range(2):
             start_idx = i * clusters_per_plot
@@ -559,8 +571,8 @@ class MultiModalClusteringMetric():
 
             # Etiquetas y título del gráfico
             ax.set_title(f"Clusters {subset_clusters[0]} to {subset_clusters[-1]}",fontsize=24)
-            ax.set_ylabel("Image Count", fontsize=24)
-            ax.set_xlabel("", fontsize=18)
+            ax.set_ylabel("Image Count", fontsize=30)
+            ax.set_xlabel("", fontsize=30)
             ax.tick_params(axis='x', labelsize=28) 
             ax.tick_params(axis='y', labelsize=28) 
             ax.legend().set_visible(False)
@@ -585,11 +597,11 @@ class MultiModalClusteringMetric():
         fig.legend(
             handles=legend_patches,    # Usar parches personalizados
             loc="lower center",        # Mueve la leyenda debajo del gráfico
-            fontsize=24,               # Tamaño de los valores de la leyenda
-            title_fontsize=24,         # Tamaño del título de la leyenda
+            fontsize=30,               # Tamaño de los valores de la leyenda
+            title_fontsize=30,         # Tamaño del título de la leyenda
             ncol=4,                    # Número de columnas en la leyenda
-            handleheight=1.2,          # Altura de los cuadros de color
-            handlelength=3.0           # Longitud de los cuadros de color
+            handleheight=1.6,          # Altura de los cuadros de color
+            handlelength=4.0           # Longitud de los cuadros de color
         )
 
         # Ajuste del diseño para acomodar la leyenda y evitar superposición
