@@ -1,0 +1,22 @@
+[
+    {   
+        "id": 39,
+        "dino_model": "base",
+        "optimizer" : "optuna",
+        "optuna_trials": 100,
+        "normalization": true,
+        "scaler" : "standard",
+        "dim_red" : "tsne",
+        "reduction_parameters": {
+            "metric": ["cosine","euclidean"],
+            "n_components": [2,3],
+            "perplexity": [25,30,40],
+            "early_exaggeration": [8,12,15]
+        },
+        "clustering" : "agglomerative",
+        "eval_method" : "davies_bouldin",
+        "penalty" : null,
+        "penalty_range" : null,
+        "cache" : 1
+    }
+]
